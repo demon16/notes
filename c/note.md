@@ -53,3 +53,13 @@ indent -kr -i8 main.c
   - `-kr` 选项表示K&R风格.
   - `-i8` 表示缩进8个空格的长度.
   - 如果没有指定`-nut`选项，则每8个缩进空格会自动用一个Tab代替.
+
+> `assert`是头文件`assert.h`中的一个宏定义, 执行到`assert(is_sorted())`这句时, 如果`is_sorted()`返回真值, 则当什么都没发生过, 继续往下执行, 如果`is_sorted()`返回值为假, 则报错退出程序.
+
+> 如果在包含`assert.h`之前定义一个`NDEBUG`宏(表示No Debug), 就可以禁用`assert.h`中的`assert`宏定义, 代码中的`assert`就不起任何作用了.
+```c
+#define NDEBUG
+#include <assert.h>
+```
+
+> 还有一种方法不必修改源文件, 直接在编译时加上选项`-DNDEBUG`, 相当于再文件开头定义`NDEBUG`宏.
