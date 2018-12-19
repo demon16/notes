@@ -75,3 +75,56 @@ run(
 ```python
 tf.summary.FileWriter("log_path", sess.graph)
 ```
+
+## 矢量运算
+```python
+primes = tf.constant([2, 3, 5, 7, 11, 13], dtype=tf.int32)
+# add
+one = tf.constant(1, dtype=tf.int32)
+just_beyond_primes = tf.add(primes, one)
+
+# muliply1
+two = tf.constant(2, dtype=tf.int32)
+primes_doubled = primes * two
+
+# multipyl2
+tf.multiply(primes, primes)
+
+# pow
+tf.pow(primes, 2)
+
+# substract
+tf.substract(primes, one)
+
+# Reshape two tensors in order to muliply them
+a = tf.constant([5, 3, 2, 7, 1, 4])
+b = tf.constant([4, 6, 3])
+reshaped_a = tf.reshape(a, [2, 3])
+reshaped_b = tf.reshape(b, [3, 1])
+tf.matmul(a, b)
+```
+
+# 变量赋值
+```python
+v = tf.contrib.eager.Variable([3])
+
+v = tf.contrib.eager.Variable([3])
+
+# Create a vector variable of shape [1, 4], with random initial values,
+# sampled from a normal distribution with mean 1 and standard deviation 0.35.
+w = tf.contrib.eager.Variable(tf.random_normal([1, 4], mean=1.0, stddev=0.35))
+
+# 向变量赋新值时, 其形状必须和之前的形状一致.
+tf.assign(v, [7])
+v.assign([5])
+```
+
+# concat
+```python
+die1 = tf.contrib.eager.Variable(
+    tf.random_uniform([10, 1], minval=1, maxval=7, dtype=tf.int32))
+die2 = tf.contrib.eager.Variable(
+    tf.random_uniform([10, 1], minval=1, maxval=7, dtype=tf.int32))
+dice_sum = tf.add(die1, die2)
+resulting_matrix = tf.concat(values=[die1, die2, dice_sum], axis=1)
+```
